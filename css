@@ -1,77 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Anúncios</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
+<div class="container">
+    <form id="anuncioForm">
+        <!-- Campos do formulário aqui -->
+        <button type="submit">Cadastrar Anúncio</button>
+    </form>
+</div>
 
-        header {
-            background-color: #00a2ff;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-        }
+<div class="container">
+    <h2>Anúncios Cadastrados</h2>
+    <ul id="listaAnuncios">
+        <!-- Anúncios serão exibidos aqui -->
+    </ul>
+</div>
 
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-        }
+<script>
+    // Array para armazenar os anúncios cadastrados (simulação)
+    const anuncios = [];
 
-        h1 {
-            font-size: 24px;
-        }
+    // Função para adicionar um novo anúncio
+    function cadastrarAnuncio(event) {
+        event.preventDefault();
 
-        label {
-            display: block;
-            margin-top: 10px;
-        }
+        const titulo = document.getElementById('titulo').value;
+        const descricao = document.getElementById('descricao').value;
+        const preco = document.getElementById('preco').value;
 
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
+        // Criar um objeto de anúncio
+        const novoAnuncio = {
+            titulo,
+            descricao,
+            preco
+        };
 
-        button {
-            background-color: #00a2ff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Cadastro de Anúncios</h1>
-    </header>
-    <div class="container">
-        <form action="#" method="post">
-            <label for="titulo">Título do Anúncio:</label>
-            <input type="text" id="titulo" name="titulo" required>
+        // Adicionar o novo anúncio ao array
+        anuncios.push(novoAnuncio);
 
-            <label for="descricao">Descrição do Anúncio:</label>
-            <textarea id="descricao" name="descricao" rows="4" required></textarea>
+        // Limpar os campos do formulário
+        document.getElementById('titulo').value = '';
+        document.getElementById('descricao').value = '';
+        document.getElementById('preco').value = '';
 
-            <label for="preco">Preço:</label>
-            <input type="text" id="preco" name="preco" required>
+        // Atualizar a lista de anúncios na página
+        atualizarListaDeAnuncios();
+    }
 
-            <button type="submit">Cadastrar Anúncio</button>
-        </form>
-    </div>
+    // Função para atualizar a lista de anúncios na página
+    function atualizarListaDeAnuncios() {
+        const listaAnuncios = document.getElementById('listaAnuncios');
+        listaAnuncios.innerHTML = '';
+
+        anuncios.forEach(anuncio => {
+            const itemLista = document.createElement('li');
+            itemLista.textContent = `Título: ${anuncio.titulo}, Descrição: ${anuncio.descricao}, Preço: ${anuncio.preco}`;
+            listaAnuncios.appendChild(itemLista);
+        });
+    }
+
+    // Adicionar um evento de envio do formulário
+    const formulario = document.getElementById('anuncioForm');
+    formulario.addEventListener('submit', cadastrarAnuncio);
+</script>
 </body>
 </html>
